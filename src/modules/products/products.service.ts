@@ -55,14 +55,12 @@ export class ProductsService {
 					categoryId,
 					price: dto.price,
 					oldPrice: dto.oldPrice ?? null,
+					onSale: dto.onSale ?? false,
 					type: dto.type,
 					condition: dto.condition ?? 'new',
-					inStock: dto.inStock ?? true,
 					stockQty: dto.stockQty ?? 0,
 					descriptionJson: (dto.descriptionJson ?? null) as Prisma.InputJsonValue,
 					descriptionHtml: richTextToHtml(dto.descriptionJson) || null,
-					warranty: dto.warranty?.trim() || null,
-					deliveryTerms: dto.deliveryTerms?.trim() || null,
 					attributes: (dto.attributes ?? {}) as Prisma.InputJsonValue,
 					seo: (dto.seo ?? {}) as Prisma.InputJsonValue,
 					isActive: dto.isActive ?? true,
@@ -88,12 +86,10 @@ export class ProductsService {
 		if (dto.slug !== undefined) data.slug = await this.uniqueSlug(dto.slug, id)
 		if (dto.price !== undefined) data.price = dto.price
 		if (dto.oldPrice !== undefined) data.oldPrice = dto.oldPrice ?? null
+		if (dto.onSale !== undefined) data.onSale = dto.onSale
 		if (dto.type !== undefined) data.type = dto.type
 		if (dto.condition !== undefined) data.condition = dto.condition
-		if (dto.inStock !== undefined) data.inStock = dto.inStock
 		if (dto.stockQty !== undefined) data.stockQty = dto.stockQty
-		if (dto.warranty !== undefined) data.warranty = dto.warranty?.trim() || null
-		if (dto.deliveryTerms !== undefined) data.deliveryTerms = dto.deliveryTerms?.trim() || null
 		if (dto.attributes !== undefined) data.attributes = dto.attributes as Prisma.InputJsonValue
 		if (dto.seo !== undefined) data.seo = dto.seo as Prisma.InputJsonValue
 		if (dto.isActive !== undefined) data.isActive = dto.isActive

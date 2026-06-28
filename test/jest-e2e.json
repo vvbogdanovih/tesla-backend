@@ -7,6 +7,7 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
+    "^src/common/rich-text/rich-text.util$": "<rootDir>/stubs/rich-text.stub.ts",
     "^src/(.*)$": "<rootDir>/../src/$1"
   },
   "globalSetup": "<rootDir>/e2e/global-setup.ts",

@@ -59,6 +59,11 @@ export class CreateProductDto {
 	@Min(0)
 	oldPrice?: number
 
+	// Знижка активна (стара ціна показується закресленою)
+	@IsOptional()
+	@IsBoolean()
+	onSale?: boolean
+
 	@IsEnum(ProductType)
 	type: ProductType
 
@@ -66,10 +71,7 @@ export class CreateProductDto {
 	@IsEnum(ProductCondition)
 	condition?: ProductCondition
 
-	@IsOptional()
-	@IsBoolean()
-	inStock?: boolean
-
+	// inStock не приймаємо — вираховується зі stockQty
 	@IsOptional()
 	@IsInt()
 	@Min(0)
@@ -79,14 +81,6 @@ export class CreateProductDto {
 	@IsOptional()
 	@IsObject()
 	descriptionJson?: Record<string, unknown>
-
-	@IsOptional()
-	@IsString()
-	warranty?: string
-
-	@IsOptional()
-	@IsString()
-	deliveryTerms?: string
 
 	// Довільні характеристики ключ–значення
 	@IsOptional()

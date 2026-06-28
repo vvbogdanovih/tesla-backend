@@ -2,6 +2,7 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import 'dotenv/config'
 import { slugify } from '../../common/utils/slugify'
+import { CONTENT_BLOCKS } from '../../modules/content-blocks/content-blocks.constants'
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
 const prisma = new PrismaClient({ adapter })
@@ -46,6 +47,15 @@ async function main() {
 		} else {
 			await prisma.category.create({ data: { slug, name, sortOrder: i } })
 		}
+	}
+
+	// Наскрізні тексти сайту (фіксований набір — створюємо, якщо немає)
+	for (const block of CONTENT_BLOCKS) {
+		await prisma.contentBlock.upsert({
+			where: { key: block.key },
+			update: { title: block.title },
+			create: { key: block.key, title: block.title }
+		})
 	}
 
 	console.log('✅ Seed виконано')

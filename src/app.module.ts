@@ -10,6 +10,7 @@ import { S3Module } from './modules/s3/s3.module'
 import { CarsModule } from './modules/cars/cars.module'
 import { CategoriesModule } from './modules/categories/categories.module'
 import { ProductsModule } from './modules/products/products.module'
+import { ContentBlocksModule } from './modules/content-blocks/content-blocks.module'
 
 @Module({
 	imports: [
@@ -30,7 +31,8 @@ import { ProductsModule } from './modules/products/products.module'
 		S3Module,
 		CarsModule,
 		CategoriesModule,
-		ProductsModule
+		ProductsModule,
+		ContentBlocksModule
 		// Далі: OrdersModule, LeadsModule, …
 	]
 })
