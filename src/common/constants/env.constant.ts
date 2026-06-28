@@ -51,7 +51,12 @@ const envSchema = z.object({
 type EnvSchema = z.infer<typeof envSchema>
 
 const getParsedEnv = (): EnvSchema => {
-	const result = envSchema.safeParse(process.env)
+	// Порожні значення (`KEY=`) трактуємо як відсутні — щоб опційні поля
+	// (url/email/інтеграції) не падали на валідації порожнього рядка.
+	const raw = Object.fromEntries(
+		Object.entries(process.env).map(([k, v]) => [k, v === '' ? undefined : v])
+	)
+	const result = envSchema.safeParse(raw)
 	if (!result.success) {
 		throw new Error(fromZodError(result.error).toString())
 	}
