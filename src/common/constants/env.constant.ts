@@ -13,6 +13,8 @@ const envSchema = z.object({
 	REFRESH_JWT_EXPIRATION: z.coerce.number(),
 	REFRESH_TOKEN_NAME: z.string().min(1).default('tesla_refresh'),
 	PASSWORD_PEPPER: z.string().min(16),
+	// Ключ шифрування секретів платіжних реквізитів (AES-256-GCM). Тримати в секреті.
+	PAYMENT_ENC_KEY: z.string().min(16),
 
 	// Фронти (CORS)
 	FRONTEND_URL: z.string().min(1).default('http://localhost:3000'),

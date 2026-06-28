@@ -11,6 +11,7 @@ import { CarsModule } from './modules/cars/cars.module'
 import { CategoriesModule } from './modules/categories/categories.module'
 import { ProductsModule } from './modules/products/products.module'
 import { ContentBlocksModule } from './modules/content-blocks/content-blocks.module'
+import { PaymentRequisitesModule } from './modules/payment-requisites/payment-requisites.module'
 
 @Module({
 	imports: [
@@ -32,7 +33,8 @@ import { ContentBlocksModule } from './modules/content-blocks/content-blocks.mod
 		CarsModule,
 		CategoriesModule,
 		ProductsModule,
-		ContentBlocksModule
+		ContentBlocksModule,
+		PaymentRequisitesModule
 		// Далі: OrdersModule, LeadsModule, …
 	]
 })

@@ -177,6 +177,25 @@ model ContentBlock {
   @@map("content_blocks")
 }
 
+// Платіжні реквізити продавця (LiqPay + банк). Керує лише superadmin.
+// liqpayPrivateKey зберігається ЗАШИФРОВАНИМ (AES-256-GCM), у відповідях маскується.
+model PaymentRequisite {
+  id               BigInt   @id @default(autoincrement())
+  label            String // назва/отримувач, напр. «ФОП Іваненко Іван Іванович»
+  taxId            String?  @map("tax_id") // ІПН / ЄДРПОУ
+  iban             String?
+  bankName         String?  @map("bank_name")
+  liqpayPublicKey  String?  @map("liqpay_public_key")
+  liqpayPrivateKey String?  @map("liqpay_private_key") // зашифровано
+  // Канали оплати — незалежні; активним по кожному може бути лише один запис
+  ibanActive       Boolean  @default(false) @map("iban_active")
+  liqpayActive     Boolean  @default(false) @map("liqpay_active")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("payment_requisites")
+}
+
 // ───────── Користувачі та замовлення ─────────
 model User {
   id           BigInt    @id @default(autoincrement())

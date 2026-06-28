@@ -41,7 +41,7 @@ src/
 
 ## Key patterns
 
-- **ENV — zod** у `src/common/constants/env.constant.ts` (усі змінні декларувати там; порожні `KEY=` → undefined). Required: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRATION`(сек), `ACCESS_TOKEN_NAME`, `REFRESH_JWT_SECRET`, `REFRESH_JWT_EXPIRATION`, `REFRESH_TOKEN_NAME`, `PASSWORD_PEPPER`(16+), `FRONTEND_URL`, `ADMIN_URL`, `PORT`(4040). S3/R2 — опційні `AWS_*`.
+- **ENV — zod** у `src/common/constants/env.constant.ts` (усі змінні декларувати там; порожні `KEY=` → undefined). Required: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRATION`(сек), `ACCESS_TOKEN_NAME`, `REFRESH_JWT_SECRET`, `REFRESH_JWT_EXPIRATION`, `REFRESH_TOKEN_NAME`, `PASSWORD_PEPPER`(16+), `PAYMENT_ENC_KEY`(16+, шифрування секретів реквізитів), `FRONTEND_URL`, `ADMIN_URL`, `PORT`(4040). S3/R2 — опційні `AWS_*`.
 - **Auth** — JWT access+refresh у **httpOnly cookie**, argon2 + `PASSWORD_PEPPER`, ролі **user/admin/superadmin**. Захист: `@UseGuards(JwtAuthGuard, RolesGuard)` + `@Roles('admin','superadmin')`. Refresh — stateless (верифікація підпису).
 - **S3/R2** — `S3Service` (один клієнт; R2 = `AWS_S3_ENDPOINT` + `AWS_S3_FORCE_PATH_STYLE=true`; AWS = лишити порожніми). Presign — лише admin.
 - **Rich text (ADR-0006)** — зберігаємо `*_json` (TipTap, джерело правди) + `*_html` (згенерований `richTextToHtml`, санітизований). Набір extensions (StarterKit) має збігатися з адмінкою. Для Node — `@tiptap/html/server` (+ happy-dom).
