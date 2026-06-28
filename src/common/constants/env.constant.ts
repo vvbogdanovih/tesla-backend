@@ -18,12 +18,15 @@ const envSchema = z.object({
 	FRONTEND_URL: z.string().min(1).default('http://localhost:3000'),
 	ADMIN_URL: z.string().min(1).default('http://localhost:3001'),
 
-	// S3 (опційно на старті, обовʼязково для медіа)
-	AWS_REGION: z.string().optional(),
+	// S3-сумісне сховище (Cloudflare R2 / AWS S3). Опційно на старті,
+	// обовʼязково для медіа. R2 = ENDPOINT + FORCE_PATH_STYLE=true.
+	AWS_REGION: z.string().default('us-east-1'), // R2: auto
 	AWS_ACCESS_KEY_ID: z.string().optional(),
 	AWS_SECRET_ACCESS_KEY: z.string().optional(),
 	AWS_S3_BUCKET_NAME: z.string().optional(),
 	AWS_S3_PUBLIC_URL: z.string().url().optional(),
+	AWS_S3_ENDPOINT: z.string().url().optional(), // R2: https://<account_id>.r2.cloudflarestorage.com; AWS: порожньо
+	AWS_S3_FORCE_PATH_STYLE: z.coerce.boolean().default(false), // true для R2
 
 	// Інтеграції (опційно на старті)
 	NOVA_POSHTA_API_KEY: z.string().optional(),

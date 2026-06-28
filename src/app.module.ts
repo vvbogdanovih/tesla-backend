@@ -6,6 +6,7 @@ import { ENV } from './common/constants'
 import { PrismaModule } from './database/prisma/prisma.module'
 import { HealthModule } from './modules/health/health.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { S3Module } from './modules/s3/s3.module'
 
 @Module({
 	imports: [
@@ -22,7 +23,8 @@ import { AuthModule } from './modules/auth/auth.module'
 		ScheduleModule.forRoot(),
 		PrismaModule,
 		HealthModule,
-		AuthModule
+		AuthModule,
+		S3Module
 		// Далі: CatalogModule, CarsModule, CategoriesModule, OrdersModule, …
 	]
 })
