@@ -5,6 +5,7 @@ import { LoggerModule } from 'nestjs-pino'
 import { ENV } from './common/constants'
 import { PrismaModule } from './database/prisma/prisma.module'
 import { HealthModule } from './modules/health/health.module'
+import { AuthModule } from './modules/auth/auth.module'
 
 @Module({
 	imports: [
@@ -20,8 +21,9 @@ import { HealthModule } from './modules/health/health.module'
 		}),
 		ScheduleModule.forRoot(),
 		PrismaModule,
-		HealthModule
-		// Доменні модулі додаються тут: AuthModule, CatalogModule, CarsModule, …
+		HealthModule,
+		AuthModule
+		// Далі: CatalogModule, CarsModule, CategoriesModule, OrdersModule, …
 	]
 })
 export class AppModule {}
