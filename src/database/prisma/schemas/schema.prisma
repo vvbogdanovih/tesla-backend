@@ -77,7 +77,8 @@ model Car {
   model           String
   generation      String?
   slug            String           @unique
-  productionStart DateTime?        @map("production_start") @db.Date
+  imageUrl        String?          @map("image_url")
+  productionStart DateTime         @map("production_start") @db.Date
   productionEnd   DateTime?        @map("production_end") @db.Date
   fitment         ProductFitment[]
 
@@ -85,14 +86,11 @@ model Car {
 }
 
 model Category {
-  id        BigInt     @id @default(autoincrement())
-  slug      String     @unique
+  id        BigInt    @id @default(autoincrement())
+  slug      String    @unique
   name      String
-  parentId  BigInt?    @map("parent_id")
-  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
-  children  Category[] @relation("CategoryTree")
-  sortOrder Int        @default(0) @map("sort_order")
-  seo       Json       @default("{}")
+  sortOrder Int       @default(0) @map("sort_order")
+  seo       Json      @default("{}")
   products  Product[]
 
   @@map("categories")

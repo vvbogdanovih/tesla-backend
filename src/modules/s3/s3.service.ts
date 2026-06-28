@@ -2,9 +2,13 @@ import { Injectable, Logger } from '@nestjs/common'
 import { S3Client, DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { randomUUID } from 'node:crypto'
+import sharp from 'sharp'
 import { ENV } from 'src/common/constants'
 
 const PRESIGN_EXPIRES_IN = 900 // 15 хв
+const MAX_DIMENSION = 1600 // макс. сторона після ресайзу, px
+const AVIF_QUALITY = 55 // 0–100; ~55 — гарний баланс розмір/якість для фото
+const IMMUTABLE_CACHE = 'public, max-age=31536000, immutable' // імена з UUID → вічний кеш
 
 @Injectable()
 export class S3Service {
@@ -43,6 +47,43 @@ export class S3Service {
 			{ expiresIn: PRESIGN_EXPIRES_IN }
 		)
 		return { key, uploadUrl, publicUrl: this.publicUrl(key) }
+	}
+
+	/**
+	 * Конвертує зображення у **AVIF** (авто-орієнтація за EXIF + ресайз до
+	 * MAX_DIMENSION, без збільшення), вантажить у R2/S3 і повертає публічний URL.
+	 * Завантаження проксується через бекенд (адмінські, нечасті) — тому presign тут не потрібен.
+	 */
+	async uploadImage(buffer: Buffer, prefix = 'products') {
+		const processed = await sharp(buffer, { failOn: 'none' })
+			.rotate() // застосувати EXIF-орієнтацію, далі метадані відкидаються
+			.resize({
+				width: MAX_DIMENSION,
+				height: MAX_DIMENSION,
+				fit: 'inside',
+				withoutEnlargement: true
+			})
+			.avif({ quality: AVIF_QUALITY, effort: 4 })
+			.toBuffer()
+
+		const key = `${this.safePrefix(prefix)}/${randomUUID()}.avif`
+		await this.s3.send(
+			new PutObjectCommand({
+				Bucket: this.bucket,
+				Key: key,
+				Body: processed,
+				ContentType: 'image/avif',
+				CacheControl: IMMUTABLE_CACHE
+			})
+		)
+		this.logger.log(`Завантажено AVIF: ${key} (${processed.byteLength} B)`)
+		return { key, url: this.publicUrl(key) }
+	}
+
+	// лишаємо тільки безпечні сегменти шляху (літери/цифри/-/_)
+	private safePrefix(prefix: string): string {
+		const clean = prefix.replace(/[^a-z0-9/_-]/gi, '').replace(/^\/+|\/+$/g, '')
+		return clean || 'products'
 	}
 
 	publicUrl(key: string): string {

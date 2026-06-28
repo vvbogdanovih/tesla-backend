@@ -7,6 +7,9 @@ import { PrismaModule } from './database/prisma/prisma.module'
 import { HealthModule } from './modules/health/health.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { S3Module } from './modules/s3/s3.module'
+import { CarsModule } from './modules/cars/cars.module'
+import { CategoriesModule } from './modules/categories/categories.module'
+import { ProductsModule } from './modules/products/products.module'
 
 @Module({
 	imports: [
@@ -24,8 +27,11 @@ import { S3Module } from './modules/s3/s3.module'
 		PrismaModule,
 		HealthModule,
 		AuthModule,
-		S3Module
-		// Далі: CatalogModule, CarsModule, CategoriesModule, OrdersModule, …
+		S3Module,
+		CarsModule,
+		CategoriesModule,
+		ProductsModule
+		// Далі: OrdersModule, LeadsModule, …
 	]
 })
 export class AppModule {}
