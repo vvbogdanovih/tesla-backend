@@ -41,8 +41,8 @@ export const ENDPOINTS = {
 		UPDATE: '/:id',
 		DELETE: '/:id'
 	},
-	SYSTEMS: {
-		BASE: '/systems',
+	CATEGORIES: {
+		BASE: '/categories',
 		GET_ALL: '/',
 		PRODUCTS: '/:slug/products',
 		CREATE: '/',

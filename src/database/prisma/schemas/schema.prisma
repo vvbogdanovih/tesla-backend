@@ -84,18 +84,18 @@ model Car {
   @@map("cars")
 }
 
-model System {
-  id        BigInt    @id @default(autoincrement())
-  slug      String    @unique
+model Category {
+  id        BigInt     @id @default(autoincrement())
+  slug      String     @unique
   name      String
-  parentId  BigInt?   @map("parent_id")
-  parent    System?   @relation("SystemTree", fields: [parentId], references: [id])
-  children  System[]  @relation("SystemTree")
-  sortOrder Int       @default(0) @map("sort_order")
-  seo       Json      @default("{}")
+  parentId  BigInt?    @map("parent_id")
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryTree")
+  sortOrder Int        @default(0) @map("sort_order")
+  seo       Json       @default("{}")
   products  Product[]
 
-  @@map("systems")
+  @@map("categories")
 }
 
 model Product {
@@ -109,8 +109,8 @@ model Product {
   type          ProductType
   inStock       Boolean          @default(true) @map("in_stock")
   stockQty      Int              @default(0) @map("stock_qty")
-  systemId      BigInt           @map("system_id")
-  system        System           @relation(fields: [systemId], references: [id])
+  categoryId    BigInt           @map("category_id")
+  category      Category         @relation(fields: [categoryId], references: [id])
   attributes    Json             @default("{}")
   description   String?
   warranty      String?
@@ -127,7 +127,7 @@ model Product {
   orderItems OrderItem[]
   leads      Lead[]
 
-  @@index([systemId])
+  @@index([categoryId])
   @@index([isActive, inStock])
   @@index([price])
   @@map("products")

@@ -19,8 +19,8 @@ async function main() {
 		await prisma.car.upsert({ where: { slug: c.slug }, update: {}, create: c })
 	}
 
-	// Глобальні системи
-	const systems = [
+	// Глобальні категорії деталей
+	const categories = [
 		'Кузов',
 		'Підвіска',
 		'Гальмівна система',
@@ -30,13 +30,13 @@ async function main() {
 		'Зовнішні ліхтарі',
 		'Колеса'
 	]
-	for (let i = 0; i < systems.length; i++) {
-		const name = systems[i]
+	for (let i = 0; i < categories.length; i++) {
+		const name = categories[i]
 		const slug = name
 			.toLowerCase()
 			.replace(/[^a-zа-яіїєґ0-9]+/gi, '-')
 			.replace(/^-|-$/g, '')
-		await prisma.system.upsert({
+		await prisma.category.upsert({
 			where: { slug },
 			update: {},
 			create: { slug, name, sortOrder: i }
