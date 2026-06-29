@@ -10,6 +10,7 @@ import { S3Module } from './modules/s3/s3.module'
 import { CarsModule } from './modules/cars/cars.module'
 import { CategoriesModule } from './modules/categories/categories.module'
 import { ProductsModule } from './modules/products/products.module'
+import { CatalogModule } from './modules/catalog/catalog.module'
 import { ContentBlocksModule } from './modules/content-blocks/content-blocks.module'
 import { PaymentRequisitesModule } from './modules/payment-requisites/payment-requisites.module'
 
@@ -33,6 +34,7 @@ import { PaymentRequisitesModule } from './modules/payment-requisites/payment-re
 		CarsModule,
 		CategoriesModule,
 		ProductsModule,
+		CatalogModule,
 		ContentBlocksModule,
 		PaymentRequisitesModule
 		// Далі: OrdersModule, LeadsModule, …

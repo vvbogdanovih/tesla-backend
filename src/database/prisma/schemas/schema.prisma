@@ -5,11 +5,13 @@
 // ============================================================================
 
 datasource db {
-  provider = "postgresql"
+  provider   = "postgresql"
+  extensions = [pg_trgm] // нечіткий пошук (trigram)
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 // ───────── Enums ─────────
@@ -127,6 +129,9 @@ model Product {
   @@index([categoryId])
   @@index([isActive, stockQty])
   @@index([price])
+  // trigram-індекси для пошуку (назва + артикул)
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([sku(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("products")
 }
 
