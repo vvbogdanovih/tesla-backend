@@ -31,6 +31,13 @@ export class CatalogService {
 		const limit = Math.min(q.limit ?? DEFAULT_LIMIT, MAX_LIMIT)
 
 		const where: Prisma.ProductWhereInput = { isActive: true }
+		if (q.q?.trim()) {
+			const term = q.q.trim()
+			where.OR = [
+				{ name: { contains: term, mode: 'insensitive' } },
+				{ sku: { contains: term, mode: 'insensitive' } }
+			]
+		}
 		if (q.category) where.category = { slug: q.category }
 		if (q.car) {
 			const slugs = q.car

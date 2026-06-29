@@ -3,6 +3,11 @@ import { IsEnum, IsIn, IsInt, IsNumber, IsOptional, IsString, Min } from 'class-
 import { ProductCondition, ProductType } from '@prisma/client'
 
 export class CatalogQueryDto {
+	// текстовий пошук (назва / артикул)
+	@IsOptional()
+	@IsString()
+	q?: string
+
 	// slug(и) авто через кому (фільтр сумісності)
 	@IsOptional()
 	@IsString()
