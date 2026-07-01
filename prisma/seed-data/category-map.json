@@ -1,0 +1,806 @@
+{
+  "31": {
+    "category": null,
+    "car": "model-s"
+  },
+  "32": {
+    "category": null,
+    "car": "model-3"
+  },
+  "33": {
+    "category": null,
+    "car": "model-x"
+  },
+  "34": {
+    "category": null,
+    "car": "model-y"
+  },
+  "35": {
+    "category": null,
+    "car": "model-s"
+  },
+  "36": {
+    "category": null,
+    "car": "model-s"
+  },
+  "38": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "40": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-s"
+  },
+  "56": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "58": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "59": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "63": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "64": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-s"
+  },
+  "66": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-s"
+  },
+  "80": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "81": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "83": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "96": {
+    "category": "elektryka",
+    "car": "model-s"
+  },
+  "99": {
+    "category": "elektryka",
+    "car": "model-s"
+  },
+  "113": {
+    "category": "pidviska",
+    "car": "model-s"
+  },
+  "114": {
+    "category": "pidviska",
+    "car": "model-s"
+  },
+  "121": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-s"
+  },
+  "122": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-s"
+  },
+  "131": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-s"
+  },
+  "135": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-s"
+  },
+  "137": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "138": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-s"
+  },
+  "142": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-s"
+  },
+  "143": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-s"
+  },
+  "144": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-s"
+  },
+  "155": {
+    "category": "shasi",
+    "car": "model-s"
+  },
+  "156": {
+    "category": "shasi",
+    "car": "model-s"
+  },
+  "177": {
+    "category": "zovnishni-zaryadni-prystroyi",
+    "car": "model-s"
+  },
+  "178": {
+    "category": "zovnishni-zaryadni-prystroyi",
+    "car": "model-s"
+  },
+  "180": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "181": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "182": {
+    "category": "kuzov",
+    "car": "model-s"
+  },
+  "184": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-s"
+  },
+  "186": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-s"
+  },
+  "191": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "192": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "193": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "194": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "196": {
+    "category": "zovnishni-elementy",
+    "car": "model-s"
+  },
+  "206": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-s"
+  },
+  "216": {
+    "category": "elektryka",
+    "car": "model-s"
+  },
+  "223": {
+    "category": "elektryka",
+    "car": "model-s"
+  },
+  "230": {
+    "category": "akumulyator-vysokoyi-napruhy",
+    "car": "model-3"
+  },
+  "231": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "235": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "236": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "237": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "239": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "240": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "242": {
+    "category": "elektryka",
+    "car": "model-3"
+  },
+  "244": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-3"
+  },
+  "245": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-3"
+  },
+  "246": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-3"
+  },
+  "248": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-3"
+  },
+  "249": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "252": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "255": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "256": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-s"
+  },
+  "257": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-3"
+  },
+  "258": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-3"
+  },
+  "259": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-3"
+  },
+  "261": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-3"
+  },
+  "262": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-3"
+  },
+  "263": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-3"
+  },
+  "265": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-3"
+  },
+  "272": {
+    "category": "shasi",
+    "car": "model-3"
+  },
+  "273": {
+    "category": "shasi",
+    "car": "model-3"
+  },
+  "274": {
+    "category": "pidviska",
+    "car": "model-3"
+  },
+  "275": {
+    "category": "pidviska",
+    "car": "model-3"
+  },
+  "276": {
+    "category": "pidviska",
+    "car": "model-3"
+  },
+  "277": {
+    "category": "pidviska",
+    "car": "model-3"
+  },
+  "278": {
+    "category": "rulova-systema",
+    "car": "model-3"
+  },
+  "279": {
+    "category": "rulova-systema",
+    "car": "model-3"
+  },
+  "281": {
+    "category": "halmivna-systema",
+    "car": "model-3"
+  },
+  "282": {
+    "category": "halmivna-systema",
+    "car": "model-3"
+  },
+  "285": {
+    "category": "halmivna-systema",
+    "car": "model-3"
+  },
+  "287": {
+    "category": "halmivna-systema",
+    "car": "model-3"
+  },
+  "290": {
+    "category": "peredniy-pryvid",
+    "car": "model-3"
+  },
+  "293": {
+    "category": "zadniy-pryvid",
+    "car": "model-3"
+  },
+  "294": {
+    "category": "zadniy-pryvid",
+    "car": "model-3"
+  },
+  "295": {
+    "category": "systema-vysokoyi-napruhy",
+    "car": "model-3"
+  },
+  "296": {
+    "category": "systema-vysokoyi-napruhy",
+    "car": "model-3"
+  },
+  "301": {
+    "category": "kuzov",
+    "car": "model-3"
+  },
+  "302": {
+    "category": "kuzov",
+    "car": "model-3"
+  },
+  "303": {
+    "category": "kuzov",
+    "car": "model-3"
+  },
+  "304": {
+    "category": "kuzov",
+    "car": "model-3"
+  },
+  "308": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-3"
+  },
+  "309": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-3"
+  },
+  "310": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-3"
+  },
+  "314": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-3"
+  },
+  "315": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "316": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "317": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "318": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "319": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "320": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "321": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "322": {
+    "category": "zovnishni-elementy",
+    "car": "model-3"
+  },
+  "329": {
+    "category": "panel-pryladiv",
+    "car": "model-3"
+  },
+  "332": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3"
+  },
+  "334": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3"
+  },
+  "335": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3"
+  },
+  "338": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3"
+  },
+  "339": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3"
+  },
+  "341": {
+    "category": null,
+    "car": "model-x"
+  },
+  "343": {
+    "category": "elektryka",
+    "car": "model-x"
+  },
+  "349": {
+    "category": "elektryka",
+    "car": "model-x"
+  },
+  "350": {
+    "category": "elektryka",
+    "car": "model-x"
+  },
+  "353": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-x"
+  },
+  "354": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-x"
+  },
+  "355": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-x"
+  },
+  "356": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-x"
+  },
+  "375": {
+    "category": "pidviska",
+    "car": "model-x"
+  },
+  "376": {
+    "category": "pidviska",
+    "car": "model-x"
+  },
+  "386": {
+    "category": "kuzov",
+    "car": "model-x"
+  },
+  "387": {
+    "category": "kuzov",
+    "car": "model-x"
+  },
+  "388": {
+    "category": "kuzov",
+    "car": "model-x"
+  },
+  "393": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-x"
+  },
+  "395": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-x"
+  },
+  "408": {
+    "category": "zovnishni-elementy",
+    "car": "model-x"
+  },
+  "409": {
+    "category": "zovnishni-elementy",
+    "car": "model-x"
+  },
+  "410": {
+    "category": "zovnishni-elementy",
+    "car": "model-x"
+  },
+  "411": {
+    "category": "zovnishni-elementy",
+    "car": "model-x"
+  },
+  "414": {
+    "category": "zovnishni-elementy",
+    "car": "model-x"
+  },
+  "423": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-x"
+  },
+  "425": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-x"
+  },
+  "433": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "436": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "437": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "438": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "439": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "440": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "442": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "443": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "444": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "445": {
+    "category": "elektryka",
+    "car": "model-y"
+  },
+  "447": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-y"
+  },
+  "448": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-y"
+  },
+  "451": {
+    "category": "upravlinnya-temperaturoyu",
+    "car": "model-y"
+  },
+  "452": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-y"
+  },
+  "453": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-y"
+  },
+  "457": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-y"
+  },
+  "460": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-y"
+  },
+  "467": {
+    "category": "shasi",
+    "car": "model-y"
+  },
+  "468": {
+    "category": "shasi",
+    "car": "model-y"
+  },
+  "469": {
+    "category": "pidviska",
+    "car": "model-y"
+  },
+  "470": {
+    "category": "pidviska",
+    "car": "model-y"
+  },
+  "471": {
+    "category": "pidviska",
+    "car": "model-y"
+  },
+  "476": {
+    "category": "halmivna-systema",
+    "car": "model-y"
+  },
+  "482": {
+    "category": "halmivna-systema",
+    "car": "model-y"
+  },
+  "485": {
+    "category": "zadniy-pryvid",
+    "car": "model-y"
+  },
+  "486": {
+    "category": "zadniy-pryvid",
+    "car": "model-y"
+  },
+  "493": {
+    "category": "kuzov",
+    "car": "model-y"
+  },
+  "494": {
+    "category": "kuzov",
+    "car": "model-y"
+  },
+  "495": {
+    "category": "kuzov",
+    "car": "model-y"
+  },
+  "496": {
+    "category": "kuzov",
+    "car": "model-y"
+  },
+  "497": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y"
+  },
+  "498": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y"
+  },
+  "499": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y"
+  },
+  "501": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y"
+  },
+  "503": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y"
+  },
+  "504": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "506": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "507": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "508": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "509": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "510": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "511": {
+    "category": "zovnishni-elementy",
+    "car": "model-y"
+  },
+  "521": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "523": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "524": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "526": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "527": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "528": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y"
+  },
+  "539": {
+    "category": "zovnishni-likhtari",
+    "car": "model-3"
+  },
+  "671": {
+    "category": null,
+    "car": "model-3-highland"
+  },
+  "672": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-3-highland"
+  },
+  "673": {
+    "category": "zovnishni-elementy",
+    "car": "model-3-highland"
+  },
+  "676": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-3-highland"
+  },
+  "678": {
+    "category": "elektryka",
+    "car": "model-3-highland"
+  },
+  "681": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-3-highland"
+  },
+  "682": {
+    "category": "info-rozvazhalna-systema",
+    "car": "model-3-highland"
+  },
+  "683": {
+    "category": "shasi",
+    "car": "model-3-highland"
+  },
+  "684": {
+    "category": "pidviska",
+    "car": "model-3-highland"
+  },
+  "686": {
+    "category": "halmivna-systema",
+    "car": "model-3-highland"
+  },
+  "687": {
+    "category": "kolesa-ta-shyny",
+    "car": "model-3-highland"
+  },
+  "692": {
+    "category": "kuzov",
+    "car": "model-3-highland"
+  },
+  "693": {
+    "category": null,
+    "car": "model-y-juniper"
+  },
+  "694": {
+    "category": "kuzov",
+    "car": "model-y-juniper"
+  },
+  "695": {
+    "category": "zakryvayuchi-komponenty",
+    "car": "model-y-juniper"
+  },
+  "696": {
+    "category": "vnutrishnye-ozdoblennya",
+    "car": "model-y-juniper"
+  },
+  "698": {
+    "category": "zovnishni-elementy",
+    "car": "model-y-juniper"
+  },
+  "699": {
+    "category": "elektryka",
+    "car": "model-y-juniper"
+  },
+  "702": {
+    "category": "bezpeka-ta-obmezhennya",
+    "car": "model-y-juniper"
+  },
+  "703": {
+    "category": "shasi",
+    "car": "model-y-juniper"
+  },
+  "704": {
+    "category": "pidviska",
+    "car": "model-y-juniper"
+  }
+}

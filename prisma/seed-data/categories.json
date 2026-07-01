@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Кузов",
+    "slug": "kuzov",
+    "sortOrder": 0
+  },
+  {
+    "name": "Зовнішні елементи",
+    "slug": "zovnishni-elementy",
+    "sortOrder": 1
+  },
+  {
+    "name": "Закриваючі компоненти",
+    "slug": "zakryvayuchi-komponenty",
+    "sortOrder": 2
+  },
+  {
+    "name": "Електрика",
+    "slug": "elektryka",
+    "sortOrder": 3
+  },
+  {
+    "name": "Підвіска",
+    "slug": "pidviska",
+    "sortOrder": 4
+  },
+  {
+    "name": "Внутрішнє оздоблення",
+    "slug": "vnutrishnye-ozdoblennya",
+    "sortOrder": 5
+  },
+  {
+    "name": "Управління температурою",
+    "slug": "upravlinnya-temperaturoyu",
+    "sortOrder": 6
+  },
+  {
+    "name": "Шасі",
+    "slug": "shasi",
+    "sortOrder": 7
+  },
+  {
+    "name": "Безпека та обмеження",
+    "slug": "bezpeka-ta-obmezhennya",
+    "sortOrder": 8
+  },
+  {
+    "name": "Зовнішні ліхтарі",
+    "slug": "zovnishni-likhtari",
+    "sortOrder": 9
+  },
+  {
+    "name": "Гальмівна система",
+    "slug": "halmivna-systema",
+    "sortOrder": 10
+  },
+  {
+    "name": "Зовнішні зарядні пристрої",
+    "slug": "zovnishni-zaryadni-prystroyi",
+    "sortOrder": 11
+  },
+  {
+    "name": "Інфо-розважальна система",
+    "slug": "info-rozvazhalna-systema",
+    "sortOrder": 12
+  },
+  {
+    "name": "Задній привід",
+    "slug": "zadniy-pryvid",
+    "sortOrder": 13
+  },
+  {
+    "name": "Рульова система",
+    "slug": "rulova-systema",
+    "sortOrder": 14
+  },
+  {
+    "name": "Колеса та шини",
+    "slug": "kolesa-ta-shyny",
+    "sortOrder": 15
+  },
+  {
+    "name": "Панель приладів",
+    "slug": "panel-pryladiv",
+    "sortOrder": 16
+  },
+  {
+    "name": "Передній привід",
+    "slug": "peredniy-pryvid",
+    "sortOrder": 17
+  },
+  {
+    "name": "Акумулятор високої напруги",
+    "slug": "akumulyator-vysokoyi-napruhy",
+    "sortOrder": 18
+  },
+  {
+    "name": "Система високої напруги",
+    "slug": "systema-vysokoyi-napruhy",
+    "sortOrder": 19
+  }
+]

@@ -27,6 +27,11 @@ export class CreatePaymentRequisiteDto {
 	@IsString()
 	liqpayPrivateKey?: string
 
+	// Токен monobank-еквайрингу — секрет (шифрується, не повертається)
+	@IsOptional()
+	@IsString()
+	monopayToken?: string
+
 	@IsOptional()
 	@IsBoolean()
 	ibanActive?: boolean
@@ -34,4 +39,8 @@ export class CreatePaymentRequisiteDto {
 	@IsOptional()
 	@IsBoolean()
 	liqpayActive?: boolean
+
+	@IsOptional()
+	@IsBoolean()
+	monopayActive?: boolean
 }

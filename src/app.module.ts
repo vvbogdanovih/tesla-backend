@@ -13,6 +13,9 @@ import { ProductsModule } from './modules/products/products.module'
 import { CatalogModule } from './modules/catalog/catalog.module'
 import { ContentBlocksModule } from './modules/content-blocks/content-blocks.module'
 import { PaymentRequisitesModule } from './modules/payment-requisites/payment-requisites.module'
+import { LeadsModule } from './modules/leads/leads.module'
+import { OrdersModule } from './modules/orders/orders.module'
+import { StatsModule } from './modules/stats/stats.module'
 
 @Module({
 	imports: [
@@ -36,8 +39,11 @@ import { PaymentRequisitesModule } from './modules/payment-requisites/payment-re
 		ProductsModule,
 		CatalogModule,
 		ContentBlocksModule,
-		PaymentRequisitesModule
-		// Далі: OrdersModule, LeadsModule, …
+		PaymentRequisitesModule,
+		LeadsModule,
+		OrdersModule,
+		StatsModule
+		// Далі: PaymentModule (LiqPay/Monopay), CartModule, …
 	]
 })
 export class AppModule {}

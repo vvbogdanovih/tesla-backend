@@ -192,9 +192,11 @@ model PaymentRequisite {
   bankName         String?  @map("bank_name")
   liqpayPublicKey  String?  @map("liqpay_public_key")
   liqpayPrivateKey String?  @map("liqpay_private_key") // зашифровано
+  monopayToken     String?  @map("monopay_token") // токен monobank-еквайрингу, зашифровано
   // Канали оплати — незалежні; активним по кожному може бути лише один запис
   ibanActive       Boolean  @default(false) @map("iban_active")
   liqpayActive     Boolean  @default(false) @map("liqpay_active")
+  monopayActive    Boolean  @default(false) @map("monopay_active")
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
 

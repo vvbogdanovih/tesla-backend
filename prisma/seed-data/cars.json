@@ -1,0 +1,38 @@
+[
+  {
+    "model": "Model 3",
+    "generation": "Pre-facelift",
+    "slug": "model-3",
+    "productionStart": "2017-07-01"
+  },
+  {
+    "model": "Model 3",
+    "generation": "Highland",
+    "slug": "model-3-highland",
+    "productionStart": "2023-09-01"
+  },
+  {
+    "model": "Model Y",
+    "generation": "Phase 1",
+    "slug": "model-y",
+    "productionStart": "2020-03-01"
+  },
+  {
+    "model": "Model Y",
+    "generation": "Juniper",
+    "slug": "model-y-juniper",
+    "productionStart": "2025-01-01"
+  },
+  {
+    "model": "Model S",
+    "generation": null,
+    "slug": "model-s",
+    "productionStart": "2012-06-01"
+  },
+  {
+    "model": "Model X",
+    "generation": null,
+    "slug": "model-x",
+    "productionStart": "2015-09-01"
+  }
+]
