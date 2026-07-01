@@ -15,6 +15,7 @@ import { ContentBlocksModule } from './modules/content-blocks/content-blocks.mod
 import { PaymentRequisitesModule } from './modules/payment-requisites/payment-requisites.module'
 import { LeadsModule } from './modules/leads/leads.module'
 import { OrdersModule } from './modules/orders/orders.module'
+import { WishlistModule } from './modules/wishlist/wishlist.module'
 import { StatsModule } from './modules/stats/stats.module'
 
 @Module({
@@ -42,6 +43,7 @@ import { StatsModule } from './modules/stats/stats.module'
 		PaymentRequisitesModule,
 		LeadsModule,
 		OrdersModule,
+		WishlistModule,
 		StatsModule
 		// Далі: PaymentModule (LiqPay/Monopay), CartModule, …
 	]

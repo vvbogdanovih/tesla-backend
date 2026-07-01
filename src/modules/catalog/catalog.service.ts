@@ -19,7 +19,14 @@ const CARD_SELECT = {
 	condition: true,
 	stockQty: true,
 	category: { select: { name: true, slug: true } },
-	images: { orderBy: { sortOrder: 'asc' as const }, take: 1, select: { url: true, alt: true } }
+	images: {
+		where: { isLive: false },
+		orderBy: { sortOrder: 'asc' as const },
+		take: 1,
+		select: { url: true, alt: true }
+	},
+	// прапорець наявності «живих фото» для плашки на картці (без завантаження самих фото)
+	_count: { select: { images: { where: { isLive: true } } } }
 } satisfies Prisma.ProductSelect
 
 @Injectable()
@@ -55,12 +62,24 @@ export class CatalogService {
 			if (q.maxPrice !== undefined) where.price.lte = q.maxPrice
 		}
 
-		const orderBy: Prisma.ProductOrderByWithRelationInput =
+		const orderBy: Prisma.ProductOrderByWithRelationInput[] =
 			q.sort === 'price_asc'
-				? { price: 'asc' }
+				? [{ price: 'asc' }]
 				: q.sort === 'price_desc'
-					? { price: 'desc' }
-					: { createdAt: 'desc' } // newest / default
+					? [{ price: 'desc' }]
+					: q.sort === 'stock'
+						? [{ stockQty: 'desc' }, { name: 'asc' }] // спочатку в наявності (прайс-лист)
+						: [{ createdAt: 'desc' }] // newest / default
+
+		// 'include=fitment' — компактний перелік сумісних моделей у рядок (для прайс-листа), карткам не потрібен
+		const wantFitment = (q.include ?? '')
+			.split(',')
+			.map(s => s.trim())
+			.includes('fitment')
+
+		const select: Prisma.ProductSelect = wantFitment
+			? { ...CARD_SELECT, fitment: { select: { car: { select: { model: true } } } } }
+			: CARD_SELECT
 
 		const [items, total] = await this.prisma.$transaction([
 			this.prisma.product.findMany({
@@ -68,12 +87,29 @@ export class CatalogService {
 				orderBy,
 				skip: (page - 1) * limit,
 				take: limit,
-				select: CARD_SELECT
+				select
 			}),
 			this.prisma.product.count({ where })
 		])
 
-		return { items, total, page, limit, pages: Math.max(1, Math.ceil(total / limit)) }
+		return {
+			items: items.map(item => {
+				const { _count, fitment, ...rest } = item as unknown as {
+					_count?: { images: number }
+					fitment?: { car: { model: string } }[]
+					[k: string]: unknown
+				}
+				return {
+					...rest,
+					hasLivePhotos: (_count?.images ?? 0) > 0,
+					...(fitment ? { compatibility: [...new Set(fitment.map(f => f.car.model))] } : {})
+				}
+			}),
+			total,
+			page,
+			limit,
+			pages: Math.max(1, Math.ceil(total / limit))
+		}
 	}
 
 	async bySlug(slug: string) {
@@ -82,8 +118,13 @@ export class CatalogService {
 			include: {
 				category: { select: { name: true, slug: true } },
 				images: { orderBy: { sortOrder: 'asc' } },
-				fitment: { include: { car: { select: { id: true, model: true, generation: true, slug: true } } } }
+				fitment: {
+					include: {
+						car: { select: { id: true, model: true, generation: true, slug: true } }
+					}
+				}
 			}
+			// images містить обидва набори (галерея + живі фото); розділяємо нижче за isLive
 		})
 		if (!p) throw new NotFoundException('Товар не знайдено')
 
@@ -103,7 +144,8 @@ export class CatalogService {
 			descriptionHtml: p.descriptionHtml,
 			seo: p.seo,
 			category: p.category,
-			images: p.images.map(i => ({ url: i.url, alt: i.alt })),
+			images: p.images.filter(i => !i.isLive).map(i => ({ url: i.url, alt: i.alt })),
+			livePhotos: p.images.filter(i => i.isLive).map(i => ({ url: i.url, alt: i.alt })),
 			cars: p.fitment.map(f => f.car)
 		}
 	}
@@ -137,7 +179,12 @@ export class CatalogService {
 				sku: true,
 				name: true,
 				price: true,
-				images: { orderBy: { sortOrder: 'asc' }, take: 1, select: { url: true } }
+				images: {
+					where: { isLive: false },
+					orderBy: { sortOrder: 'asc' },
+					take: 1,
+					select: { url: true }
+				}
 			}
 		})
 		const byId = new Map(products.map(p => [p.id.toString(), p]))

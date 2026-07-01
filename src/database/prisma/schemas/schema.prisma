@@ -125,6 +125,7 @@ model Product {
   relatedBy  ProductRelated[] @relation("RelatedProduct")
   orderItems OrderItem[]
   leads      Lead[]
+  wishlist   WishlistItem[]
 
   @@index([categoryId])
   @@index([isActive, stockQty])
@@ -155,7 +156,10 @@ model ProductImage {
   url       String
   alt       String?
   sortOrder Int     @default(0) @map("sort_order")
+  // false = студійна галерея; true = «живі фото» (реальні знімки екземпляра, окремий блок на сторінці)
+  isLive    Boolean @default(false) @map("is_live")
 
+  @@index([productId, isLive])
   @@map("product_images")
 }
 
@@ -216,6 +220,7 @@ model User {
   addresses    Address[]
   orders       Order[]
   leads        Lead[]
+  wishlist     WishlistItem[]
 
   @@map("users")
 }
@@ -267,6 +272,21 @@ model OrderItem {
   qty       Int
 
   @@map("order_items")
+}
+
+// Обране (список бажань) — лише для авторизованих; сигнал інтересу для CRM (ADR-0012).
+// Toggle ідемпотентний (складений PK); популярність товару = COUNT за product_id.
+model WishlistItem {
+  userId    BigInt   @map("user_id")
+  productId BigInt   @map("product_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([userId, productId])
+  @@index([productId])
+  @@index([userId, createdAt])
+  @@map("wishlist_items")
 }
 
 // ───────── Ліди та контент ─────────

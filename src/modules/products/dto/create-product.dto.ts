@@ -97,6 +97,13 @@ export class CreateProductDto {
 	@Type(() => ProductImageDto)
 	images?: ProductImageDto[]
 
+	// «Живі фото» — реальні знімки екземпляра (окремий блок на сторінці товару, isLive:true)
+	@IsOptional()
+	@IsArray()
+	@ValidateNested({ each: true })
+	@Type(() => ProductImageDto)
+	livePhotos?: ProductImageDto[]
+
 	// id сумісних авто (ProductFitment M2M)
 	@IsOptional()
 	@IsArray()

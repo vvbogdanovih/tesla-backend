@@ -60,7 +60,8 @@ describe('ProductsService', () => {
 				baseDto({
 					carIds: ['2', '3'],
 					descriptionJson: { type: 'doc' },
-					images: [{ url: 'u1', alt: 'фото' }, { url: 'u2' }]
+					images: [{ url: 'u1', alt: 'фото' }, { url: 'u2' }],
+					livePhotos: [{ url: 'live1' }]
 				})
 			)
 
@@ -69,9 +70,11 @@ describe('ProductsService', () => {
 			expect(data.sku).toBe('SKU-1')
 			expect(data.descriptionHtml).toBe('<p>html</p>')
 			expect(data.fitment.create).toEqual([{ carId: BigInt(2) }, { carId: BigInt(3) }])
+			// галерея (isLive:false) + живі фото (isLive:true) в одному наборі
 			expect(data.images.create).toEqual([
-				{ url: 'u1', alt: 'фото', sortOrder: 0 },
-				{ url: 'u2', alt: null, sortOrder: 1 }
+				{ url: 'u1', alt: 'фото', sortOrder: 0, isLive: false },
+				{ url: 'u2', alt: null, sortOrder: 1, isLive: false },
+				{ url: 'live1', alt: null, sortOrder: 0, isLive: true }
 			])
 		})
 
@@ -165,15 +168,35 @@ describe('ProductsService', () => {
 			expect(prisma.product.update.mock.calls[0][0].data.sku).toBe('OWN')
 		})
 
-		it('повністю замінює галерею (deleteMany + create)', async () => {
+		it('повністю замінює галерею (deleteMany + create), не чіпаючи живі фото', async () => {
 			prisma.product.findUnique.mockResolvedValue({ id: BigInt(1) })
 			prisma.product.update.mockResolvedValue({ id: BigInt(1) })
 
 			await service.update(BigInt(1), { images: [{ url: 'x', alt: 'a' }] })
 
+			// передано лише images → заміщуємо тільки набір isLive:false
 			expect(prisma.product.update.mock.calls[0][0].data.images).toEqual({
-				deleteMany: {},
-				create: [{ url: 'x', alt: 'a', sortOrder: 0 }]
+				deleteMany: [{ isLive: false }],
+				create: [{ url: 'x', alt: 'a', sortOrder: 0, isLive: false }]
+			})
+		})
+
+		it('замінює галерею та живі фото незалежними наборами', async () => {
+			prisma.product.findUnique.mockResolvedValue({ id: BigInt(1) })
+			prisma.product.update.mockResolvedValue({ id: BigInt(1) })
+
+			await service.update(BigInt(1), {
+				images: [{ url: 'g' }],
+				livePhotos: [{ url: 'l1' }, { url: 'l2' }]
+			})
+
+			expect(prisma.product.update.mock.calls[0][0].data.images).toEqual({
+				deleteMany: [{ isLive: false }, { isLive: true }],
+				create: [
+					{ url: 'g', alt: null, sortOrder: 0, isLive: false },
+					{ url: 'l1', alt: null, sortOrder: 0, isLive: true },
+					{ url: 'l2', alt: null, sortOrder: 1, isLive: true }
+				]
 			})
 		})
 

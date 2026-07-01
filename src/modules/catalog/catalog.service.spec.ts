@@ -24,7 +24,13 @@ describe('CatalogService', () => {
 		it('будує where з фільтрів і повертає пагінацію', async () => {
 			prisma.product.findMany.mockReturnValue('FM')
 			prisma.product.count.mockReturnValue('CNT')
-			prisma.$transaction.mockResolvedValue([[{ id: 1n }], 2])
+			prisma.$transaction.mockResolvedValue([
+				[
+					{ id: 1n, _count: { images: 2 } },
+					{ id: 2n, _count: { images: 0 } }
+				],
+				2
+			])
 
 			const res = await service.list({
 				category: 'kuzov',
@@ -39,10 +45,15 @@ describe('CatalogService', () => {
 			})
 
 			expect(res).toMatchObject({ total: 2, page: 1, limit: 10, pages: 1 })
+			// _count.images (живі фото) → hasLivePhotos; сам _count у відповідь не потрапляє
+			expect(res.items[0]).toEqual({ id: 1n, hasLivePhotos: true })
+			expect(res.items[1]).toEqual({ id: 2n, hasLivePhotos: false })
 			const arg = prisma.product.findMany.mock.calls[0][0]
 			expect(arg.where.isActive).toBe(true)
 			expect(arg.where.category).toEqual({ slug: 'kuzov' })
-			expect(arg.where.fitment).toEqual({ some: { car: { slug: { in: ['model-3', 'model-y'] } } } })
+			expect(arg.where.fitment).toEqual({
+				some: { car: { slug: { in: ['model-3', 'model-y'] } } }
+			})
 			expect(arg.where.type).toBe('original')
 			expect(arg.where.stockQty).toEqual({ gt: 0 })
 			expect(arg.where.price).toEqual({ gte: 100, lte: 5000 })
@@ -85,8 +96,20 @@ describe('CatalogService', () => {
 				descriptionHtml: '<p>опис</p>',
 				seo: {},
 				category: { name: 'Кузов', slug: 'kuzov' },
-				images: [{ url: 'u', alt: 'a', id: 1n, productId: 1n, sortOrder: 0 }],
-				fitment: [{ car: { id: 2n, model: 'Model 3', generation: 'Highland', slug: 'model-3-highland' } }]
+				images: [
+					{ url: 'u', alt: 'a', id: 1n, productId: 1n, sortOrder: 0, isLive: false },
+					{ url: 'live', alt: 'l', id: 2n, productId: 1n, sortOrder: 0, isLive: true }
+				],
+				fitment: [
+					{
+						car: {
+							id: 2n,
+							model: 'Model 3',
+							generation: 'Highland',
+							slug: 'model-3-highland'
+						}
+					}
+				]
 			})
 
 			const res = await service.bySlug('fara')
@@ -94,7 +117,9 @@ describe('CatalogService', () => {
 			expect(res.cars).toEqual([
 				{ id: 2n, model: 'Model 3', generation: 'Highland', slug: 'model-3-highland' }
 			])
+			// галерея та живі фото розділяються за isLive
 			expect(res.images).toEqual([{ url: 'u', alt: 'a' }])
+			expect(res.livePhotos).toEqual([{ url: 'live', alt: 'l' }])
 			expect(res.descriptionHtml).toBe('<p>опис</p>')
 			expect('descriptionJson' in res).toBe(false)
 		})

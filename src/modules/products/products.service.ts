@@ -21,7 +21,7 @@ export class ProductsService {
 			orderBy: { createdAt: 'desc' },
 			include: {
 				category: { select: { id: true, name: true } },
-				images: { orderBy: { sortOrder: 'asc' }, take: 1 },
+				images: { where: { isLive: false }, orderBy: { sortOrder: 'asc' }, take: 1 },
 				_count: { select: { fitment: true } }
 			}
 		})
@@ -33,7 +33,9 @@ export class ProductsService {
 			include: {
 				category: { select: { id: true, name: true } },
 				images: { orderBy: { sortOrder: 'asc' } },
-				fitment: { include: { car: { select: { id: true, model: true, generation: true } } } }
+				fitment: {
+					include: { car: { select: { id: true, model: true, generation: true } } }
+				}
 			}
 		})
 		if (!product) throw new NotFoundException('Товар не знайдено')
@@ -61,10 +63,15 @@ export class ProductsService {
 					stockQty: dto.stockQty ?? 0,
 					descriptionJson: (dto.descriptionJson ?? null) as Prisma.InputJsonValue,
 					descriptionHtml: richTextToHtml(dto.descriptionJson) || null,
-					attributes: (dto.attributes ?? {}) as Prisma.InputJsonValue,
+					attributes: dto.attributes ?? {},
 					seo: (dto.seo ?? {}) as Prisma.InputJsonValue,
 					isActive: dto.isActive ?? true,
-					images: { create: this.imageRows(dto.images) },
+					images: {
+						create: [
+							...this.imageRows(dto.images),
+							...this.imageRows(dto.livePhotos, true)
+						]
+					},
 					fitment: { create: carIds.map(carId => ({ carId })) }
 				},
 				include: { images: true, fitment: true }
@@ -90,7 +97,7 @@ export class ProductsService {
 		if (dto.type !== undefined) data.type = dto.type
 		if (dto.condition !== undefined) data.condition = dto.condition
 		if (dto.stockQty !== undefined) data.stockQty = dto.stockQty
-		if (dto.attributes !== undefined) data.attributes = dto.attributes as Prisma.InputJsonValue
+		if (dto.attributes !== undefined) data.attributes = dto.attributes
 		if (dto.seo !== undefined) data.seo = dto.seo as Prisma.InputJsonValue
 		if (dto.isActive !== undefined) data.isActive = dto.isActive
 
@@ -102,9 +109,21 @@ export class ProductsService {
 			const categoryId = await this.resolveCategory(dto.categoryId)
 			data.category = { connect: { id: categoryId } }
 		}
-		// Галерея/сумісність — повна заміна (delete + recreate)
-		if (dto.images !== undefined) {
-			data.images = { deleteMany: {}, create: this.imageRows(dto.images) }
+		// Галерея / живі фото — повна заміна лише переданих наборів (delete + recreate).
+		// Кожен набір (isLive false/true) заміщується незалежно, тож можна оновити
+		// тільки галерею або тільки живі фото, не зачепивши інший набір.
+		if (dto.images !== undefined || dto.livePhotos !== undefined) {
+			const deleteMany: Prisma.ProductImageScalarWhereInput[] = []
+			const create: Prisma.ProductImageCreateWithoutProductInput[] = []
+			if (dto.images !== undefined) {
+				deleteMany.push({ isLive: false })
+				create.push(...this.imageRows(dto.images))
+			}
+			if (dto.livePhotos !== undefined) {
+				deleteMany.push({ isLive: true })
+				create.push(...this.imageRows(dto.livePhotos, true))
+			}
+			data.images = { deleteMany, create }
 		}
 		if (dto.carIds !== undefined) {
 			const carIds = await this.resolveCars(dto.carIds)
@@ -112,7 +131,11 @@ export class ProductsService {
 		}
 
 		try {
-			return await this.prisma.product.update({ where: { id }, data, include: { images: true } })
+			return await this.prisma.product.update({
+				where: { id },
+				data,
+				include: { images: true }
+			})
 		} catch (e) {
 			throw this.mapError(e)
 		}
@@ -156,11 +179,12 @@ export class ProductsService {
 		}
 	}
 
-	private imageRows(images?: ProductImageDto[]) {
+	private imageRows(images?: ProductImageDto[], isLive = false) {
 		return (images ?? []).map((img, i) => ({
 			url: img.url,
 			alt: img.alt?.trim() || null,
-			sortOrder: i
+			sortOrder: i,
+			isLive
 		}))
 	}
 
@@ -171,7 +195,10 @@ export class ProductsService {
 		} catch {
 			throw new BadRequestException('Невірний categoryId')
 		}
-		const exists = await this.prisma.category.findUnique({ where: { id }, select: { id: true } })
+		const exists = await this.prisma.category.findUnique({
+			where: { id },
+			select: { id: true }
+		})
 		if (!exists) throw new NotFoundException('Категорію не знайдено')
 		return id
 	}
@@ -185,7 +212,8 @@ export class ProductsService {
 			throw new BadRequestException('Невірний carId у сумісності')
 		}
 		const found = await this.prisma.car.count({ where: { id: { in: ids } } })
-		if (found !== ids.length) throw new NotFoundException('Деяке авто зі сумісності не знайдено')
+		if (found !== ids.length)
+			throw new NotFoundException('Деяке авто зі сумісності не знайдено')
 		return ids
 	}
 

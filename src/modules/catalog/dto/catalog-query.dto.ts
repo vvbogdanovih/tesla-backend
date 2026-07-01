@@ -44,8 +44,13 @@ export class CatalogQueryDto {
 	maxPrice?: number
 
 	@IsOptional()
-	@IsIn(['default', 'price_asc', 'price_desc', 'newest'])
+	@IsIn(['default', 'price_asc', 'price_desc', 'newest', 'stock'])
 	sort?: string
+
+	// опційне розширення відповіді; 'fitment' — додає перелік сумісних моделей у рядок (прайс-лист)
+	@IsOptional()
+	@IsString()
+	include?: string
 
 	@IsOptional()
 	@Type(() => Number)

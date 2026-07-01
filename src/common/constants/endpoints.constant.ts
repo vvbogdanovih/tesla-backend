@@ -58,6 +58,12 @@ export const ENDPOINTS = {
 		GET_BY_ID: '/:id',
 		UPDATE_STATUS: '/:id/status'
 	},
+	WISHLIST: {
+		BASE: '/account/wishlist',
+		LIST: '/',
+		TOGGLE: '/:productId',
+		ADMIN: '/admin/wishlist'
+	},
 	LEADS: {
 		BASE: '/leads',
 		CREATE: '/',
