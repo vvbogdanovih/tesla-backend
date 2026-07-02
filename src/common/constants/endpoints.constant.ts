@@ -55,8 +55,15 @@ export const ENDPOINTS = {
 	ORDERS: {
 		BASE: '/orders',
 		CREATE: '/',
-		GET_BY_ID: '/:id',
-		UPDATE_STATUS: '/:id/status'
+		GET_ALL: '/',
+		BY_NUMBER: '/:number',
+		ADMIN_DETAIL: '/id/:id',
+		UPDATE_STATUS: '/:id/status',
+		ACCOUNT: '/account/orders'
+	},
+	PAYMENT_REQUISITES: {
+		BASE: '/payment-requisites',
+		ACTIVE: '/active'
 	},
 	WISHLIST: {
 		BASE: '/account/wishlist',

@@ -89,21 +89,35 @@ export class PaymentRequisitesService {
 
 		const updated = await this.prisma.$transaction(async tx => {
 			// активним по каналу лише один
-			if (ibanActive) await tx.paymentRequisite.updateMany({ where: { id: { not: id } }, data: { ibanActive: false } })
-			if (liqpayActive) await tx.paymentRequisite.updateMany({ where: { id: { not: id } }, data: { liqpayActive: false } })
-			if (monopayActive) await tx.paymentRequisite.updateMany({ where: { id: { not: id } }, data: { monopayActive: false } })
+			if (ibanActive)
+				await tx.paymentRequisite.updateMany({
+					where: { id: { not: id } },
+					data: { ibanActive: false }
+				})
+			if (liqpayActive)
+				await tx.paymentRequisite.updateMany({
+					where: { id: { not: id } },
+					data: { liqpayActive: false }
+				})
+			if (monopayActive)
+				await tx.paymentRequisite.updateMany({
+					where: { id: { not: id } },
+					data: { monopayActive: false }
+				})
 
 			const data: Prisma.PaymentRequisiteUpdateInput = {}
 			if (dto.label !== undefined) data.label = dto.label.trim()
 			if (dto.taxId !== undefined) data.taxId = dto.taxId?.trim() || null
 			if (dto.iban !== undefined) data.iban = dto.iban?.trim() || null
 			if (dto.bankName !== undefined) data.bankName = dto.bankName?.trim() || null
-			if (dto.liqpayPublicKey !== undefined) data.liqpayPublicKey = dto.liqpayPublicKey?.trim() || null
+			if (dto.liqpayPublicKey !== undefined)
+				data.liqpayPublicKey = dto.liqpayPublicKey?.trim() || null
 			data.ibanActive = ibanActive
 			data.liqpayActive = liqpayActive
 			data.monopayActive = monopayActive
 			// секрети оновлюємо лише якщо передано непорожнє значення (write-only)
-			if (dto.liqpayPrivateKey?.trim()) data.liqpayPrivateKey = encryptSecret(dto.liqpayPrivateKey.trim())
+			if (dto.liqpayPrivateKey?.trim())
+				data.liqpayPrivateKey = encryptSecret(dto.liqpayPrivateKey.trim())
 			if (dto.monopayToken?.trim()) data.monopayToken = encryptSecret(dto.monopayToken.trim())
 
 			return tx.paymentRequisite.update({ where: { id }, data })
@@ -125,7 +139,20 @@ export class PaymentRequisitesService {
 	async getActiveLiqpayWithSecret() {
 		const r = await this.prisma.paymentRequisite.findFirst({ where: { liqpayActive: true } })
 		if (!r) return null
-		return { ...r, liqpayPrivateKey: r.liqpayPrivateKey ? decryptSecret(r.liqpayPrivateKey) : null }
+		return {
+			...r,
+			liqpayPrivateKey: r.liqpayPrivateKey ? decryptSecret(r.liqpayPrivateKey) : null
+		}
+	}
+
+	// Публічно (чекаут/сторінка оплати): дані активного каналу IBAN — жодних секретів,
+	// select обмежує вибірку лише безпечними полями на рівні запиту
+	async getActivePublic() {
+		const iban = await this.prisma.paymentRequisite.findFirst({
+			where: { ibanActive: true },
+			select: { label: true, taxId: true, iban: true, bankName: true }
+		})
+		return { iban: iban ?? null }
 	}
 
 	async getActiveMonopayWithSecret() {
@@ -187,7 +214,9 @@ export class PaymentRequisitesService {
 		const missing: string[] = []
 		if (!f.liqpayPublicKey?.trim()) missing.push('LiqPay public key')
 		if (!keySet) missing.push('LiqPay private key')
-		throw new BadRequestException(`Не можна активувати LiqPay — заповніть: ${missing.join(', ')}`)
+		throw new BadRequestException(
+			`Не можна активувати LiqPay — заповніть: ${missing.join(', ')}`
+		)
 	}
 
 	private assertMonopayComplete(tokenSet: boolean) {
@@ -196,7 +225,10 @@ export class PaymentRequisitesService {
 	}
 
 	private async ensureExists(id: bigint) {
-		const r = await this.prisma.paymentRequisite.findUnique({ where: { id }, select: { id: true } })
+		const r = await this.prisma.paymentRequisite.findUnique({
+			where: { id },
+			select: { id: true }
+		})
 		if (!r) throw new NotFoundException('Реквізити не знайдено')
 	}
 

@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { OrderStatus } from '@prisma/client'
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard'
 import { OptionalJwtAuthGuard } from 'src/common/guards/optional-jwt-auth.guard'
 import { RolesGuard } from 'src/common/guards/roles.guard'
@@ -10,6 +9,7 @@ import type { JWTPayload } from 'src/common/types/jwt-payload'
 import { OrdersService } from './orders.service'
 import { CreateOrderDto } from './dto/create-order.dto'
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto'
+import { OrdersAdminQueryDto } from './dto/orders-admin-query.dto'
 
 @ApiTags('orders')
 @Controller('orders')
@@ -24,15 +24,23 @@ export class OrdersController {
 		return this.orders.create(dto, userId)
 	}
 
-	// Адмін — список усіх замовлень
+	// Адмін — список замовлень (пошук за номером, пагінація, фільтр статусу)
 	@UseGuards(JwtAuthGuard, RolesGuard)
 	@Roles('admin', 'superadmin')
 	@Get()
-	findAll(@Query('status') status?: OrderStatus) {
-		return this.orders.findAll(status)
+	findAll(@Query() q: OrdersAdminQueryDto) {
+		return this.orders.findAll(q)
 	}
 
-	// Публічно — за номером (підтвердження/статус)
+	// Адмін — повна деталь замовлення (шлях /id/:id, щоб не конфліктувати з публічним /:number)
+	@UseGuards(JwtAuthGuard, RolesGuard)
+	@Roles('admin', 'superadmin')
+	@Get('id/:id')
+	byId(@Param('id') id: string) {
+		return this.orders.findById(id)
+	}
+
+	// Публічно — за номером (підтвердження/статус); лише безпечні поля, без PII
 	@Get(':number')
 	byNumber(@Param('number') orderNumber: string) {
 		return this.orders.findByNumber(orderNumber)

@@ -6,6 +6,7 @@ import {
 	IsInt,
 	IsOptional,
 	IsString,
+	Max,
 	Min,
 	MinLength,
 	ValidateNested
@@ -18,6 +19,7 @@ export class OrderItemDto {
 
 	@IsInt()
 	@Min(1)
+	@Max(999, { message: 'Завелика кількість в одній позиції' })
 	qty: number
 }
 
